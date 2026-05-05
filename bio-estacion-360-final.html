@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bio-Estación 360 — Ciencias Naturales Grado 5°</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --verde: #1ab57a;
+  --verde-dark: #0e8a5a;
+  --verde-light: #e8faf2;
+  --azul: #1a8fd1;
+  --azul-dark: #0e6aaa;
+  --azul-light: #e8f4ff;
+  --morado: #7c3aed;
+  --morado-light: #f3eeff;
+  --naranja: #f59e0b;
+  --coral: #ef4444;
+  --rosa: #ec4899;
+  --teal: #0d9488;
+  --bg: #f0faf5;
+  --card: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --radius: 20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* ===== HEADER ===== */
+header{
+  background:linear-gradient(135deg,#064e3b 0%,#065f46 40%,#0d7377 80%,#0891b2 100%);
+  position:relative;overflow:hidden;
+}
+.header-bg-img{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1518152006812-edab29b069ac?w=1200&q=60&auto=format');
+  background-size:cover;background-position:center;
+  opacity:0.12;
+}
+.header-inner{
+  max-width:960px;margin:0 auto;padding:28px 20px 24px;
+  text-align:center;position:relative;z-index:2;
+}
+.header-logo{
+  font-family:'Baloo 2',cursive;font-size:clamp(2rem,6vw,3.2rem);
+  font-weight:800;color:#fff;
+  text-shadow:0 3px 12px rgba(0,0,0,0.3);
+  letter-spacing:1px;margin-bottom:6px;
+}
+.header-logo span{color:#6ee7b7}
+header p{color:rgba(255,255,255,0.88);font-size:1rem;font-weight:600}
+.header-deco{
+  position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:radial-gradient(ellipse at 80% 50%,rgba(110,231,183,0.15) 0%,transparent 60%);
+}
+
+/* ===== SCORE BAR ===== */
+.score-bar{
+  background:#fff;border-bottom:3px solid #d1fae5;
+  padding:10px 20px;display:flex;justify-content:center;
+  align-items:center;gap:20px;flex-wrap:wrap;
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  position:sticky;top:0;z-index:100;
+}
+.score-item{display:flex;align-items:center;gap:8px;font-weight:700;font-size:0.95rem}
+.score-icon{font-size:1.3rem}
+.score-val{color:var(--verde-dark);font-size:1.1rem;min-width:30px;text-align:right}
+.score-badge{
+  background:linear-gradient(135deg,var(--verde),var(--teal));
+  color:#fff;border-radius:20px;padding:3px 12px;font-size:0.8rem;font-weight:800;
+}
+
+/* ===== NAV ===== */
+nav{
+  display:flex;justify-content:center;gap:8px;
+  padding:18px 16px 4px;flex-wrap:wrap;
+  max-width:960px;margin:0 auto;
+}
+.tab-btn{
+  background:#fff;border:2.5px solid #cbd5e1;border-radius:50px;
+  padding:10px 20px;font-family:'Nunito',sans-serif;font-weight:800;
+  font-size:0.95rem;cursor:pointer;transition:all .25s;
+  display:flex;align-items:center;gap:7px;color:var(--text);
+}
+.tab-btn:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,0.1);border-color:#94a3b8}
+.tab-btn.active{color:#fff;border-color:transparent;transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.15)}
+.tab-btn[data-tab="celula"].active{background:linear-gradient(135deg,var(--morado),#9333ea)}
+.tab-btn[data-tab="ecosistemas"].active{background:linear-gradient(135deg,var(--verde-dark),var(--teal))}
+.tab-btn[data-tab="cuerpo"].active{background:linear-gradient(135deg,var(--azul-dark),var(--azul))}
+.tab-btn[data-tab="metodo"].active{background:linear-gradient(135deg,var(--coral),#f97316)}
+.tab-btn[data-tab="quiz"].active{background:linear-gradient(135deg,var(--naranja),var(--rosa))}
+
+/* ===== MAIN ===== */
+main{max-width:960px;margin:18px auto 40px;padding:0 16px}
+.section{display:none;animation:fadeIn .4s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== CARDS ===== */
+.card{
+  background:var(--card);border-radius:var(--radius);padding:26px;
+  margin-bottom:22px;box-shadow:var(--shadow);border:2px solid transparent;
+}
+.card-title{
+  font-family:'Baloo 2',cursive;font-size:1.55rem;font-weight:800;
+  margin-bottom:12px;display:flex;align-items:center;gap:10px;
+}
+.module-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--verde-light);color:var(--verde-dark);
+  border-radius:30px;padding:4px 14px;font-size:0.8rem;font-weight:800;
+  margin-bottom:14px;border:2px solid #a7f3d0;
+}
+.intro-text{margin-bottom:18px;line-height:1.7;color:#374151;font-size:0.97rem}
+
+/* ===== IMAGEN DE CONTEXTO ===== */
+.context-img-wrap{
+  border-radius:16px;overflow:hidden;margin-bottom:18px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.12);position:relative;
+}
+.context-img-wrap img{
+  width:100%;height:200px;object-fit:cover;display:block;
+}
+.context-img-caption{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);
+  color:#fff;padding:10px 14px;font-size:0.82rem;font-weight:700;
+}
+
+/* ===== CELULA ===== */
+#celula .card{border-color:#ede9fe}
+.cell-layout{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start}
+.cell-diagram-wrap{flex:0 0 auto;width:300px;max-width:100%}
+.cell-info-panel{flex:1;min-width:220px}
+
+.cell-svg-wrap{
+  background:linear-gradient(135deg,#faf5ff,#ede9fe);
+  border-radius:16px;padding:16px;
+  border:2px solid #ddd6fe;
+  box-shadow:0 4px 20px rgba(124,58,237,0.1);
+}
+.cell-svg{width:100%;cursor:pointer}
+.cell-part{transition:all .3s;cursor:pointer}
+.cell-part:hover{filter:brightness(1.15) drop-shadow(0 0 7px rgba(124,58,237,0.5))}
+.cell-part.active-glow{filter:brightness(1.25) drop-shadow(0 0 12px rgba(124,58,237,0.9))}
+
+.organello-info-box{
+  background:linear-gradient(135deg,#4c1d95,#6d28d9);
+  color:#fff;border-radius:14px;padding:14px 16px;
+  margin-top:14px;min-height:80px;
+  font-size:0.9rem;line-height:1.6;
+  box-shadow:0 4px 16px rgba(124,58,237,0.3);
+  transition:all .3s;
+}
+.organello-info-box .org-name{font-family:'Baloo 2',cursive;font-size:1.1rem;font-weight:700;margin-bottom:4px;color:#c4b5fd}
+.organello-info-box .org-analogy{margin-top:6px;font-size:0.82rem;color:#ddd6fe;font-style:italic}
+
+.organelle-list{list-style:none}
+.organelle-item{
+  background:#faf5ff;border-left:4px solid var(--morado);
+  border-radius:0 12px 12px 0;padding:10px 14px;
+  margin-bottom:9px;cursor:pointer;transition:all .2s;
+  font-weight:700;font-size:0.9rem;
+}
+.organelle-item span{font-weight:400;font-size:0.82rem;display:block;margin-top:2px;color:var(--muted)}
+.organelle-item:hover,.organelle-item.active-item{
+  background:var(--morado);color:#fff;transform:translateX(5px);
+}
+.organelle-item.active-item span{color:#ddd6fe}
+
+/* cell comparison images */
+.cell-compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:10px}
+.cell-type-card{
+  border-radius:16px;overflow:hidden;cursor:pointer;
+  box-shadow:0 2px 12px rgba(0,0,0,0.1);transition:transform .2s;
+}
+.cell-type-card:hover{transform:translateY(-4px)}
+.cell-type-img{width:100%;height:140px;object-fit:cover;display:block}
+.cell-type-body{padding:12px;background:#fff}
+.cell-type-body strong{display:block;font-size:0.9rem;margin-bottom:4px}
+.cell-type-body p{font-size:0.78rem;color:var(--muted)}
+
+/* ===== ECOSISTEMAS ===== */
+#ecosistemas .card{border-color:#d1fae5}
+.eco-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.eco-tab{
+  background:#f0fdf4;border:2.5px solid #a7f3d0;border-radius:30px;
+  padding:8px 18px;font-family:'Nunito',sans-serif;font-weight:700;
+  cursor:pointer;font-size:0.92rem;transition:all .2s;color:var(--text);
+}
+.eco-tab.active{background:var(--verde-dark);color:#fff;border-color:var(--verde-dark);box-shadow:0 3px 10px rgba(14,138,90,0.3)}
+.eco-content{display:none}
+.eco-content.active{display:block;animation:fadeIn .3s ease}
+
+.eco-img-banner{
+  width:100%;height:180px;object-fit:cover;border-radius:14px;
+  margin-bottom:16px;box-shadow:0 4px 16px rgba(0,0,0,0.15);
+}
+.eco-facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:12px;margin-top:14px}
+.eco-fact{
+  background:linear-gradient(135deg,#ecfdf5,#d1fae5);
+  border-radius:14px;padding:14px;text-align:center;
+  font-weight:700;font-size:0.85rem;transition:transform .2s;cursor:default;
+  border:1.5px solid #a7f3d0;
+}
+.eco-fact:hover{transform:translateY(-3px)}
+.eco-fact .fact-icon{font-size:1.8rem;display:block;margin-bottom:6px}
+
+.food-chain{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:16px 0}
+.chain-item{
+  background:#fff;border:2.5px solid var(--verde);border-radius:14px;
+  padding:10px 14px;text-align:center;font-weight:700;font-size:0.88rem;
+  cursor:pointer;transition:all .25s;min-width:80px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.07);
+}
+.chain-item:hover{background:var(--verde);color:#fff;transform:scale(1.06)}
+.chain-item .emoji{font-size:1.7rem;display:block;margin-bottom:4px}
+.chain-arrow{font-size:1.3rem;color:var(--verde-dark);font-weight:900}
+
+/* simulador eco */
+.eco-sim-panel{
+  background:linear-gradient(135deg,#ecfdf5,#f0fdf4);
+  border:2px solid #a7f3d0;border-radius:16px;padding:18px;margin-top:14px;
+}
+.eco-sim-title{font-weight:800;color:var(--verde-dark);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.eco-health-display{
+  background:linear-gradient(135deg,#065f46,#0d7377);
+  border-radius:14px;padding:14px 18px;color:#fff;margin-bottom:14px;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.eco-health-num{font-family:'Baloo 2',cursive;font-size:2.2rem;font-weight:800;color:#6ee7b7}
+.eco-health-label{font-size:0.85rem;color:rgba(255,255,255,0.8)}
+.eco-track{background:rgba(255,255,255,0.2);border-radius:10px;height:12px;flex:1;min-width:120px}
+.eco-fill{height:12px;border-radius:10px;transition:width .8s ease}
+.eco-visual-strip{font-size:1.5rem;padding:10px 0;letter-spacing:4px;text-align:center}
+.var-slider-row{margin-bottom:14px}
+.var-slider-row label{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:0.85rem;font-weight:700;margin-bottom:6px;
+}
+.var-slider-row label span{
+  background:var(--verde-light);color:var(--verde-dark);
+  border-radius:20px;padding:2px 10px;font-size:0.8rem;
+}
+input[type=range]{
+  width:100%;appearance:none;height:7px;border-radius:10px;
+  background:#cbd5e1;outline:none;
+}
+input[type=range]::-webkit-slider-thumb{
+  appearance:none;width:20px;height:20px;border-radius:50%;
+  background:var(--verde-dark);cursor:pointer;
+  box-shadow:0 2px 8px rgba(14,138,90,0.4);
+}
+
+.hipotesis-box{
+  background:#fff;border:2px solid #a7f3d0;border-radius:14px;
+  padding:16px;margin-top:14px;
+}
+.hip-situation{
+  background:linear-gradient(135deg,#ecfdf5,#d1fae5);
+  border-radius:10px;padding:12px;font-size:0.85rem;
+  line-height:1.6;margin-bottom:12px;border-left:4px solid var(--verde);
+}
+.hip-textarea{
+  width:100%;background:#f8fafc;border:2px solid #cbd5e1;
+  border-radius:10px;color:var(--text);font-family:'Nunito',sans-serif;
+  font-size:0.88rem;padding:10px;resize:vertical;min-height:80px;
+  outline:none;transition:border .2s;
+}
+.hip-textarea:focus{border-color:var(--verde)}
+.btn-verificar{
+  width:100%;padding:12px;border-radius:10px;border:none;
+  background:linear-gradient(135deg,var(--verde-dark),var(--teal));
+  color:#fff;font-family:'Nunito',sans-serif;font-size:0.98rem;
+  font-weight:800;cursor:pointer;margin-top:10px;transition:all .2s;
+  box-shadow:0 3px 12px rgba(14,138,90,0.3);
+}
+.btn-verificar:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(14,138,90,0.4)}
+
+/* DRAG & DROP */
+.drag-section{margin-top:20px}
+.drag-title{font-weight:800;font-size:0.98rem;margin-bottom:10px;color:var(--verde-dark)}
+.drag-items{
+  display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;
+  min-height:54px;padding:10px;background:#f0fdf4;
+  border:2.5px dashed #86efac;border-radius:14px;
+}
+.drag-item{
+  background:linear-gradient(135deg,var(--verde),var(--teal));color:#fff;
+  border-radius:30px;padding:8px 18px;font-weight:700;
+  cursor:grab;user-select:none;transition:all .2s;font-size:0.88rem;
+  box-shadow:0 2px 8px rgba(0,0,0,0.12);
+}
+.drag-item:hover{transform:scale(1.06)}
+.drag-item.dragging{opacity:.45;transform:scale(1.05)}
+.drop-zones{display:flex;gap:12px;flex-wrap:wrap}
+.drop-zone{
+  flex:1;min-width:130px;border:2.5px dashed #94a3b8;
+  border-radius:14px;padding:12px;text-align:center;
+  min-height:100px;transition:all .2s;background:#fafafa;
+}
+.drop-zone.over{border-color:var(--verde);background:#ecfdf5}
+.drop-zone.correct{border-color:var(--verde);background:#d1fae5;animation:popIn .4s}
+.drop-zone.wrong{border-color:var(--coral);background:#fee2e2;animation:shake .4s}
+.drop-zone-label{font-weight:800;font-size:0.88rem;margin-bottom:6px;color:var(--text)}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@keyframes popIn{0%{transform:scale(0.95)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+
+/* ===== CUERPO HUMANO ===== */
+#cuerpo .card{border-color:#bfdbfe}
+.systems-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:14px;margin-bottom:20px;
+}
+.system-card{
+  background:linear-gradient(145deg,#eff6ff,#dbeafe);
+  border:2.5px solid #bfdbfe;border-radius:16px;
+  padding:16px 10px;text-align:center;cursor:pointer;
+  transition:all .25s;font-weight:700;font-size:0.9rem;
+  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+.system-card:hover,.system-card.active{
+  background:linear-gradient(135deg,var(--azul-dark),var(--azul));color:#fff;
+  border-color:transparent;transform:translateY(-4px);
+  box-shadow:0 8px 24px rgba(14,106,170,0.3);
+}
+.system-card .sys-icon{font-size:2rem;display:block;margin-bottom:8px}
+
+.system-detail-wrap{
+  background:linear-gradient(135deg,#eff6ff,#f0f9ff);
+  border-radius:16px;padding:20px;animation:fadeIn .35s ease;
+  display:none;border:2px solid #bae6fd;
+}
+.system-detail-wrap.active{display:block}
+.sys-detail-top{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:14px}
+.sys-detail-img{width:120px;height:120px;object-fit:cover;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,0.15);flex-shrink:0}
+.sys-detail-text{}
+.sys-detail-text h3{font-family:'Baloo 2',cursive;font-size:1.3rem;font-weight:800;color:var(--azul-dark);margin-bottom:8px}
+.sys-detail-text p{font-size:0.88rem;line-height:1.6;color:#374151}
+
+.system-parts{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.sys-part{
+  background:var(--azul);color:#fff;border-radius:30px;
+  padding:6px 16px;font-weight:700;font-size:0.88rem;
+  cursor:pointer;transition:all .2s;
+}
+.sys-part:hover{background:var(--azul-dark);transform:scale(1.05)}
+.sys-fact-box{
+  background:#fff;border-left:4px solid var(--azul);
+  border-radius:0 12px 12px 0;padding:12px 16px;
+  font-size:0.9rem;font-weight:600;min-height:50px;transition:all .3s;
+  color:#1e40af;
+}
+.fun-fact-strip{
+  margin-top:14px;padding:12px 16px;
+  background:linear-gradient(135deg,#eff6ff,#dbeafe);
+  border-radius:12px;font-size:0.88rem;border-left:4px solid var(--azul);
+}
+
+.curiosidades-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:12px;margin-top:10px}
+.curiosidad-card{
+  border-radius:14px;overflow:hidden;cursor:pointer;
+  box-shadow:0 2px 10px rgba(0,0,0,0.08);transition:transform .2s;
+}
+.curiosidad-card:hover{transform:translateY(-4px)}
+.curiosidad-img{width:100%;height:100px;object-fit:cover;display:block}
+.curiosidad-body{padding:10px;background:#fff}
+.curiosidad-body strong{display:block;font-size:1rem;color:var(--azul-dark)}
+.curiosidad-body span{font-size:0.78rem;color:var(--muted)}
+
+/* ===== MÉTODO CIENTÍFICO ===== */
+#metodo .card{border-color:#fed7aa}
+.metodo-steps{display:flex;flex-direction:column;gap:0}
+.metodo-step{
+  display:flex;align-items:stretch;gap:0;
+  animation:fadeIn .4s ease;
+}
+.step-connector{
+  display:flex;flex-direction:column;align-items:center;
+  width:50px;flex-shrink:0;
+}
+.step-circle{
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;font-weight:800;color:#fff;flex-shrink:0;
+  font-family:'Baloo 2',cursive;box-shadow:0 3px 10px rgba(0,0,0,0.15);
+}
+.step-line{width:3px;flex:1;min-height:20px}
+.step-body{
+  flex:1;background:#fff;border-radius:14px;padding:14px 16px;
+  margin-bottom:12px;margin-left:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.07);cursor:pointer;
+  transition:all .2s;border:2px solid transparent;
+}
+.step-body:hover{transform:translateX(4px);box-shadow:0 4px 18px rgba(0,0,0,0.1)}
+.step-body.expanded{border-color:var(--naranja)}
+.step-title{font-family:'Baloo 2',cursive;font-size:1.05rem;font-weight:800;margin-bottom:4px}
+.step-brief{font-size:0.83rem;color:var(--muted)}
+.step-detail{
+  font-size:0.85rem;line-height:1.6;color:#374151;
+  margin-top:10px;display:none;
+}
+.step-detail.open{display:block;animation:fadeIn .3s ease}
+.step-img{width:100%;height:110px;object-fit:cover;border-radius:10px;margin-top:10px}
+
+.metodo-actividad{
+  background:linear-gradient(135deg,#fff7ed,#ffedd5);
+  border:2px solid #fed7aa;border-radius:16px;padding:18px;margin-top:6px;
+}
+.act-title{font-weight:800;color:#c2410c;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.act-scenario{
+  background:#fff;border-radius:12px;padding:14px;
+  font-size:0.88rem;line-height:1.6;margin-bottom:14px;
+  border-left:4px solid var(--naranja);
+}
+.act-steps-list{display:flex;flex-direction:column;gap:8px}
+.act-step-row{
+  display:flex;align-items:center;gap:12px;
+  background:#fff;border-radius:12px;padding:12px 14px;
+  cursor:pointer;transition:all .2s;
+  border:2px solid transparent;font-size:0.88rem;font-weight:600;
+}
+.act-step-row:hover{border-color:var(--naranja);background:#fff7ed}
+.act-step-row.done{border-color:var(--verde);background:#ecfdf5;color:var(--verde-dark)}
+.act-step-num{
+  width:30px;height:30px;border-radius:50%;
+  background:var(--naranja);color:#fff;font-weight:800;
+  display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;
+}
+.act-step-row.done .act-step-num{background:var(--verde)}
+
+/* ===== QUIZ ===== */
+#quiz .card{border-color:#fde68a}
+.quiz-container{max-width:620px;margin:0 auto}
+.quiz-progress{background:#e2e8f0;border-radius:30px;height:10px;margin-bottom:20px;overflow:hidden}
+.quiz-progress-bar{height:100%;background:linear-gradient(90deg,var(--naranja),var(--rosa));border-radius:30px;transition:width .5s ease}
+.quiz-q-img{
+  width:100%;height:160px;object-fit:cover;border-radius:14px;
+  margin-bottom:16px;box-shadow:0 4px 16px rgba(0,0,0,0.12);
+}
+.quiz-question{font-family:'Baloo 2',cursive;font-size:1.25rem;font-weight:700;margin-bottom:18px;color:var(--text);line-height:1.4}
+.quiz-options{display:flex;flex-direction:column;gap:11px}
+.quiz-option{
+  background:#fff;border:2.5px solid #e2e8f0;border-radius:14px;
+  padding:13px 18px;font-family:'Nunito',sans-serif;font-weight:700;
+  font-size:0.95rem;cursor:pointer;transition:all .2s;
+  text-align:left;color:var(--text);display:flex;align-items:center;gap:12px;
+}
+.quiz-option:hover{border-color:var(--naranja);background:#fffbeb;transform:translateX(4px)}
+.quiz-option.correct{background:#d1fae5;border-color:var(--verde);color:var(--verde-dark)}
+.quiz-option.wrong{background:#fee2e2;border-color:var(--coral);color:#b91c1c}
+.quiz-option:disabled{cursor:default;transform:none}
+.quiz-feedback{
+  margin-top:16px;padding:14px;border-radius:14px;
+  font-weight:700;font-size:0.93rem;text-align:center;display:none;animation:fadeIn .3s ease;
+}
+.quiz-feedback.show{display:block}
+.quiz-feedback.correct{background:#d1fae5;color:var(--verde-dark)}
+.quiz-feedback.wrong{background:#fee2e2;color:#b91c1c}
+.quiz-nav{display:flex;justify-content:center;margin-top:20px}
+.btn-primary{
+  background:linear-gradient(135deg,var(--naranja),var(--rosa));color:#fff;
+  border:none;border-radius:50px;padding:14px 36px;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;
+  cursor:pointer;transition:all .25s;box-shadow:0 4px 14px rgba(245,158,11,.3);
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(245,158,11,.4)}
+.btn-primary:disabled{opacity:.5;cursor:default;transform:none}
+.quiz-result{text-align:center;padding:30px;display:none;animation:fadeIn .5s ease}
+.quiz-result.show{display:block}
+.result-emoji{font-size:4rem;margin-bottom:12px}
+.result-title{font-family:'Baloo 2',cursive;font-size:1.9rem;font-weight:800;margin-bottom:8px}
+.result-score{font-size:1.1rem;font-weight:700;color:var(--muted)}
+.stars{font-size:1.9rem;margin:10px 0}
+.result-award-img{
+  width:200px;height:160px;object-fit:cover;border-radius:16px;
+  margin:16px auto;display:block;box-shadow:0 4px 20px rgba(0,0,0,0.15);
+}
+
+/* ===== FEEDBACK MODAL ===== */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);
+  align-items:center;justify-content:center;padding:24px;
+}
+.modal-overlay.show{display:flex}
+.modal-card{
+  background:#fff;border-radius:24px;padding:32px 24px;
+  text-align:center;max-width:380px;width:100%;
+  animation:popIn .35s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:0 20px 60px rgba(0,0,0,0.2);
+}
+.modal-icon{font-size:3.5rem;margin-bottom:12px}
+.modal-title{font-family:'Baloo 2',cursive;font-size:1.5rem;font-weight:800;margin-bottom:8px}
+.modal-msg{font-size:0.9rem;color:var(--muted);line-height:1.6;margin-bottom:16px}
+.modal-pts{font-size:1.1rem;font-weight:800;color:var(--verde-dark);margin-bottom:20px}
+.btn-modal{
+  padding:12px 30px;border-radius:12px;border:none;
+  background:linear-gradient(135deg,var(--verde),var(--teal));
+  color:#fff;font-family:'Nunito',sans-serif;font-size:1rem;
+  font-weight:800;cursor:pointer;transition:all .2s;
+}
+.btn-modal:hover{transform:translateY(-2px)}
+
+/* ===== FOOTER ===== */
+footer{
+  text-align:center;padding:24px;color:var(--muted);font-size:0.85rem;font-weight:600;
+  border-top:2px solid #e2e8f0;margin-top:10px;
+  background:linear-gradient(135deg,#f8fafc,#f0fdf4);
+}
+.footer-logos{
+  display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:10px;
+}
+.footer-badge{
+  background:#fff;border-radius:12px;padding:8px 16px;
+  font-size:0.8rem;font-weight:800;border:2px solid #e2e8f0;
+  color:var(--text);display:flex;align-items:center;gap:6px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:600px){
+  .cell-diagram-wrap{width:100%}
+  .systems-grid{grid-template-columns:repeat(2,1fr)}
+  .drop-zones{flex-direction:column}
+  .sys-detail-top{flex-direction:column}
+  .sys-detail-img{width:100%;height:160px}
+  .metodo-step{flex-direction:column}
+  .step-connector{flex-direction:row;width:auto;margin-bottom:8px}
+  .step-line{height:3px;width:20px;min-height:unset}
+  .step-body{margin-left:0}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-bg-img"></div>
+  <div class="header-deco"></div>
+  <div class="header-inner">
+    <div class="header-logo">🔬 Bio-Estación <span>360</span></div>
+    <p>Ciencias Naturales Grado 5° — I.E. Soledad Acosta de Samper · Cartagena de Indias</p>
+  </div>
+</header>
+
+<!-- SCORE BAR -->
+<div class="score-bar">
+  <div class="score-item">⭐ <span>Puntos: <strong class="score-val" id="totalScore">0</strong></span></div>
+  <div class="score-item">🏅 <span>Logros: <strong class="score-val" id="badgeCount">0</strong>/7</span></div>
+  <div class="score-item">🔥 <span>Racha: <strong class="score-val" id="streak">0</strong></span></div>
+  <div class="score-badge" id="levelBadge">Nv. 1 — Explorador</div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <button class="tab-btn active" data-tab="celula" onclick="switchTab('celula',this)">🦠 La Célula</button>
+  <button class="tab-btn" data-tab="ecosistemas" onclick="switchTab('ecosistemas',this)">🌿 Ecosistemas</button>
+  <button class="tab-btn" data-tab="cuerpo" onclick="switchTab('cuerpo',this)">🫀 Cuerpo Humano</button>
+  <button class="tab-btn" data-tab="metodo" onclick="switchTab('metodo',this)">🔭 Método Científico</button>
+  <button class="tab-btn" data-tab="quiz" onclick="switchTab('quiz',this);initQuiz()">🧠 Quiz Final</button>
+</nav>
+
+<main>
+
+<!-- ===== MÓDULO 1: CÉLULA ===== -->
+<section id="celula" class="section active">
+  <div class="card">
+    <div class="module-tag">📗 Módulo 1</div>
+    <div class="card-title" style="color:var(--morado)">🦠 La Célula: Unidad de la Vida</div>
+
+    <div class="context-img-wrap">
+      <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?w=900&q=70&auto=format" alt="Células al microscopio">
+      <div class="context-img-caption">🔬 Células observadas al microscopio electrónico — cada ser vivo está formado por ellas</div>
+    </div>
+
+    <p class="intro-text">La célula es la unidad más pequeña capaz de realizar las funciones de la vida. ¡Todos los seres vivos estamos hechos de células! Haz clic en cada parte del diagrama <strong>o en la lista</strong> para descubrir qué hace cada organelo.</p>
+
+    <div class="cell-layout">
+      <div class="cell-diagram-wrap">
+        <div class="cell-svg-wrap">
+          <svg class="cell-svg" viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg">
+            <!-- Membrana celular -->
+            <ellipse cx="150" cy="140" rx="142" ry="128" fill="#e8d5f5" stroke="#7c3aed" stroke-width="4"
+              class="cell-part" id="cp-membrana" onclick="showOrganelle('membrana')" />
+            <!-- Citoplasma -->
+            <ellipse cx="150" cy="140" rx="128" ry="114" fill="#f3eeff" stroke="none"
+              class="cell-part" id="cp-citoplasma" onclick="showOrganelle('citoplasma')" />
+            <!-- Núcleo -->
+            <ellipse cx="148" cy="130" rx="50" ry="44" fill="#c4b5fd" stroke="#6d28d9" stroke-width="3"
+              class="cell-part" id="cp-nucleo" onclick="showOrganelle('nucleo')" />
+            <text x="148" y="134" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold" font-family="Nunito">Núcleo</text>
+            <!-- Nucleolo -->
+            <circle cx="148" cy="126" r="12" fill="#6d28d9"
+              class="cell-part" id="cp-nucleolo" onclick="showOrganelle('nucleolo')" />
+            <text x="148" y="130" text-anchor="middle" font-size="7" fill="#fff" font-weight="bold" font-family="Nunito">ADN</text>
+            <!-- Mitocondria 1 -->
+            <ellipse cx="75" cy="95" rx="25" ry="14" fill="#f97316" stroke="#c2410c" stroke-width="2" transform="rotate(-30 75 95)"
+              class="cell-part" id="cp-mitocondria" onclick="showOrganelle('mitocondria')" />
+            <path d="M65 88 Q78 82 88 93" fill="none" stroke="#c2410c" stroke-width="1.5" />
+            <text x="56" y="76" font-size="8" fill="#c2410c" font-weight="bold" font-family="Nunito">Mitocondria</text>
+            <!-- Mitocondria 2 -->
+            <ellipse cx="218" cy="172" rx="24" ry="13" fill="#f97316" stroke="#c2410c" stroke-width="2" transform="rotate(20 218 172)"
+              class="cell-part" onclick="showOrganelle('mitocondria')" />
+            <!-- Vacuola -->
+            <ellipse cx="82" cy="186" rx="30" ry="23" fill="#7dd3fc" stroke="#0369a1" stroke-width="2"
+              class="cell-part" id="cp-vacuola" onclick="showOrganelle('vacuola')" />
+            <text x="82" y="190" text-anchor="middle" font-size="8.5" fill="#0c4a6e" font-weight="bold" font-family="Nunito">Vacuola</text>
+            <!-- Cloroplasto -->
+            <ellipse cx="222" cy="100" rx="24" ry="14" fill="#4ade80" stroke="#166534" stroke-width="2" transform="rotate(15 222 100)"
+              class="cell-part" id="cp-cloroplasto" onclick="showOrganelle('cloroplasto')" />
+            <text x="240" y="88" font-size="8" fill="#166534" font-weight="bold" font-family="Nunito">Cloropl.</text>
+            <!-- Ribosomas -->
+            <circle cx="115" cy="100" r="5.5" fill="#f59e0b" class="cell-part" onclick="showOrganelle('ribosoma')" />
+            <circle cx="170" cy="90" r="5.5" fill="#f59e0b" class="cell-part" onclick="showOrganelle('ribosoma')" />
+            <circle cx="195" cy="120" r="5.5" fill="#f59e0b" class="cell-part" onclick="showOrganelle('ribosoma')" />
+            <circle cx="178" cy="105" r="5.5" fill="#f59e0b" class="cell-part" onclick="showOrganelle('ribosoma')" />
+            <text x="162" y="82" font-size="7.5" fill="#b45309" font-weight="bold" font-family="Nunito">Ribosomas</text>
+            <!-- RE rugoso -->
+            <path d="M185 155 Q215 142 222 165 Q228 186 205 192" fill="none" stroke="#10b981" stroke-width="3.5" stroke-dasharray="5,3"
+              class="cell-part" id="cp-re" onclick="showOrganelle('re')" />
+            <text x="212" y="210" font-size="7.5" fill="#065f46" font-weight="bold" font-family="Nunito">RE</text>
+            <!-- Aparato de Golgi -->
+            <path d="M115 210 Q143 205 143 220" stroke="#ec4899" stroke-width="3.5" fill="none" />
+            <path d="M113 222 Q145 216 145 232" stroke="#ec4899" stroke-width="3.5" fill="none" />
+            <path d="M115 234 Q143 229 141 244" stroke="#be185d" stroke-width="3.5" fill="none"
+              class="cell-part" id="cp-golgi" onclick="showOrganelle('golgi')" />
+            <text x="102" y="256" font-size="7.5" fill="#be185d" font-weight="bold" font-family="Nunito">Ap. Golgi</text>
+            <!-- Membrana label -->
+            <text x="272" y="42" font-size="8" fill="#6d28d9" font-weight="bold" font-family="Nunito" text-anchor="middle">Membrana</text>
+            <text x="272" y="52" font-size="8" fill="#6d28d9" font-weight="bold" font-family="Nunito" text-anchor="middle">Celular</text>
+            <line x1="262" y1="54" x2="248" y2="68" stroke="#6d28d9" stroke-width="1.5" stroke-dasharray="3,2" />
+          </svg>
+          <div class="organello-info-box" id="organelleTooltip">
+            <div class="org-name" id="org-name">👆 ¡Explora la célula!</div>
+            <div id="org-desc">Haz clic en cualquier parte del diagrama o en la lista de la derecha para aprender sobre cada organelo.</div>
+            <div class="org-analogy" id="org-analogy"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell-info-panel">
+        <p style="font-weight:800;color:var(--morado);margin-bottom:10px;font-size:0.95rem">📋 Orgánulos celulares:</p>
+        <ul class="organelle-list" id="organelleList">
+          <li class="organelle-item" onclick="showOrganelle('membrana')" data-key="membrana">🟣 Membrana Celular <span>Controla el paso de sustancias</span></li>
+          <li class="organelle-item" onclick="showOrganelle('nucleo')" data-key="nucleo">🧬 Núcleo <span>El «cerebro» de la célula</span></li>
+          <li class="organelle-item" onclick="showOrganelle('nucleolo')" data-key="nucleolo">🔵 Nucléolo <span>Zona de síntesis de ARN</span></li>
+          <li class="organelle-item" onclick="showOrganelle('mitocondria')" data-key="mitocondria">⚡ Mitocondria <span>Produce energía (ATP)</span></li>
+          <li class="organelle-item" onclick="showOrganelle('vacuola')" data-key="vacuola">💧 Vacuola <span>Almacena agua y nutrientes</span></li>
+          <li class="organelle-item" onclick="showOrganelle('ribosoma')" data-key="ribosoma">🟡 Ribosoma <span>Fabrica proteínas</span></li>
+          <li class="organelle-item" onclick="showOrganelle('re')" data-key="re">🌀 Retículo Endoplásmico <span>Transporte intracelular</span></li>
+          <li class="organelle-item" onclick="showOrganelle('golgi')" data-key="golgi">📦 Aparato de Golgi <span>Empaqueta y distribuye</span></li>
+          <li class="organelle-item" onclick="showOrganelle('cloroplasto')" data-key="cloroplasto">🌿 Cloroplasto <span>Realiza la fotosíntesis</span></li>
+          <li class="organelle-item" onclick="showOrganelle('citoplasma')" data-key="citoplasma">🌊 Citoplasma <span>Medio interno de la célula</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tipos de células con imágenes -->
+  <div class="card">
+    <div class="card-title" style="color:var(--morado)">🔍 Tipos de Células: Animal vs. Vegetal</div>
+    <div class="cell-compare-grid">
+      <div class="cell-type-card" onclick="addScore(8);showModal('🐭','¡Célula Animal!','No tiene pared celular ni cloroplastos, pero sí centrosomas. Sus vacuolas son pequeñas. ¡Son las células de tu cuerpo!',8)">
+        <img class="cell-type-img" src="https://cdn0.ecologiaverde.com/es/posts/9/7/2/lista_de_las_partes_de_la_celula_animal_3279_1_orig.jpg" alt="Célula animal">
+        <div class="cell-type-body">
+          <strong style="color:var(--morado)">🐭 Célula Animal</strong>
+          <p>Sin pared celular ni cloroplastos. Tiene centrosomas y vacuolas pequeñas.</p>
+        </div>
+      </div>
+      <div class="cell-type-card" onclick="addScore(8);showModal('🌿','¡Célula Vegetal!','Tiene pared celular rígida, cloroplastos (para fotosíntesis) y una gran vacuola central. ¡Son las células de las plantas!',8)">
+        <img class="cell-type-img" src="https://tse4.mm.bing.net/th/id/OIP.V1qR_oMA6Ui1-M3LXR7kLQHaD-?pid=Api&P=0&h=180" alt="Célula vegetal">
+        <div class="cell-type-body">
+          <strong style="color:var(--verde-dark)">🌱 Célula Vegetal</strong>
+          <p>Con pared celular, cloroplastos para fotosíntesis y vacuola central grande.</p>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:0.82rem;color:var(--muted);margin-top:12px">💡 Haz clic en cada célula para aprender más y ganar +8 puntos</p>
+  </div>
+</section>
+
+<!-- ===== MÓDULO 2: ECOSISTEMAS ===== -->
+<section id="ecosistemas" class="section">
+  <div class="card">
+    <div class="module-tag">📗 Módulo 2</div>
+    <div class="card-title" style="color:var(--verde-dark)">🌿 Ecosistemas del Caribe y el Mundo</div>
+
+    <div class="context-img-wrap">
+      <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&q=70&auto=format" alt="Arrecife de coral Caribe">
+      <div class="context-img-caption">🌊 Arrecife de coral del Caribe colombiano — hogar de miles de especies</div>
+    </div>
+
+    <p class="intro-text">Un ecosistema es el conjunto de <strong>seres vivos</strong> y su <strong>ambiente no vivo</strong> interactuando entre sí. ¡Cartagena de Indias tiene ecosistemas únicos! Explora cada uno para descubrir sus cadenas alimentarias.</p>
+
+    <div class="eco-tabs">
+      <button class="eco-tab active" onclick="showEco('manglar',this)">🌴 Manglar</button>
+      <button class="eco-tab" onclick="showEco('arrecife',this)">🪸 Arrecife</button>
+      <button class="eco-tab" onclick="showEco('selva',this)">🌳 Selva</button>
+      <button class="eco-tab" onclick="showEco('oceano',this)">🌊 Océano</button>
+    </div>
+
+    <!-- MANGLAR -->
+    <div id="eco-manglar" class="eco-content active">
+      <img class="eco-img-banner" src="https://www.alternativetravelcartagena.com/wp-content/uploads/2015/09/ruta-ecologica-en-cartagena-tour-por-los-manglares-de-la-boquilla-portada.jpg" alt="Manglar Caribe" onerror="this.src='https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=900&q=70&auto=format'">
+      <div class="eco-facts">
+        <div class="eco-fact"><span class="fact-icon">🌊</span>Ecosistema costero entre tierra y mar</div>
+        <div class="eco-fact"><span class="fact-icon">🐠</span>Criadero natural de peces y camarones</div>
+        <div class="eco-fact"><span class="fact-icon">🌿</span>Raíces que filtran agua y retienen carbono</div>
+        <div class="eco-fact"><span class="fact-icon">🦀</span>Alta biodiversidad: aves, reptiles, crustáceos</div>
+      </div>
+      <p style="margin:12px 0 6px;font-weight:800;color:var(--verde-dark)">⛓️ Cadena alimentaria del manglar:</p>
+      <div class="food-chain">
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🌿</span>Mangle</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🦀</span>Cangrejo</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🐠</span>Pez</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🦅</span>Garza</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-item" style="border-color:var(--coral)" onclick="addScore(3)"><span class="emoji">🍄</span>Descomp.</div>
+      </div>
+    </div>
+
+    <!-- ARRECIFE -->
+    <div id="eco-arrecife" class="eco-content">
+      <img class="eco-img-banner" src="https://ejatlas.org/media/conflict/dragado-de-los-corales-gamines-por-el-proyecto-canal-alterno-en-la-bahia-de-cartagena/8b246-web-varadero.jpg" alt="Arrecife coral">
+      <div class="eco-facts">
+        <div class="eco-fact"><span class="fact-icon">🪸</span>Los bosques tropicales del mar</div>
+        <div class="eco-fact"><span class="fact-icon">🌡️</span>Sensibles: 2°C más destruye el coral</div>
+        <div class="eco-fact"><span class="fact-icon">🐟</span>25% de especies marinas viven aquí</div>
+        <div class="eco-fact"><span class="fact-icon">💎</span>Protegen costas de tormentas y erosión</div>
+      </div>
+      <p style="margin:12px 0 6px;font-weight:800;color:var(--verde-dark)">⛓️ Cadena alimentaria del arrecife:</p>
+      <div class="food-chain">
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🌊</span>Algas</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🐡</span>Pez loro</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🦈</span>Tiburón</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-item" style="border-color:var(--coral)" onclick="addScore(3)"><span class="emoji">🦠</span>Bacterias</div>
+      </div>
+    </div>
+
+    <!-- SELVA -->
+    <div id="eco-selva" class="eco-content">
+      <img class="eco-img-banner" src="https://media.istockphoto.com/id/2166552260/es/foto/ic%C3%B3nica-cascada-rodeada-de-un-exuberante-bosque-verde-antiguo-en-las-selvas-tropicales-de.webp?a=1&b=1&s=612x612&w=0&k=20&c=kFkGaFaiz1GJUCdo4pV9w-LgzB43NGCvtwZD6OdvnPs=" alt="Selva tropical">
+      <div class="eco-facts">
+        <div class="eco-fact"><span class="fact-icon">🌳</span>Más del 50% de especies terrestres</div>
+        <div class="eco-fact"><span class="fact-icon">💧</span>Produce hasta 75% de su propia lluvia</div>
+        <div class="eco-fact"><span class="fact-icon">🦜</span>Múltiples estratos: suelo, sotobosque, dosel</div>
+        <div class="eco-fact"><span class="fact-icon">🌡️</span>Temperatura estable todo el año: 25-28°C</div>
+      </div>
+      <p style="margin:12px 0 6px;font-weight:800;color:var(--verde-dark)">⛓️ Cadena alimentaria de la selva:</p>
+      <div class="food-chain">
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🌿</span>Plantas</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🦋</span>Insecto</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🐸</span>Rana</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🐍</span>Serpiente</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-item" style="border-color:var(--coral)" onclick="addScore(3)"><span class="emoji">🍄</span>Descomp.</div>
+      </div>
+    </div>
+
+    <!-- OCEANO -->
+    <div id="eco-oceano" class="eco-content">
+      <img class="eco-img-banner" src="https://res.cloudinary.com/worldpackers/image/upload/c_limit,f_auto,q_auto,w_1140/o3rezbdme86lzimuzixx" alt="Océano">
+      <div class="eco-facts">
+        <div class="eco-fact"><span class="fact-icon">🌊</span>Cubre el 71% de la Tierra</div>
+        <div class="eco-fact"><span class="fact-icon">🌡️</span>Regula el clima global del planeta</div>
+        <div class="eco-fact"><span class="fact-icon">🐋</span>Mayor biodiversidad del planeta</div>
+        <div class="eco-fact"><span class="fact-icon">🌿</span>El fitoplancton produce el 50% del O₂</div>
+      </div>
+      <p style="margin:12px 0 6px;font-weight:800;color:var(--verde-dark)">⛓️ Cadena alimentaria del océano:</p>
+      <div class="food-chain">
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🦠</span>Fitoplancton</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🦐</span>Krill</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🐟</span>Pez</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🐬</span>Delfín</div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-item" onclick="addScore(3)"><span class="emoji">🐋</span>Ballena</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Simulador -->
+  <div class="card">
+    <div class="card-title" style="color:var(--verde-dark)">⚗️ Simulador: Manglar de La Boquilla</div>
+
+    <div class="context-img-wrap" style="margin-bottom:14px">
+      <img src="https://www.parquesnacionales.gov.co/wp-content/uploads/2015/05/Mangle-scaled-e1722290025290.jpg" alt="Ecosistema costero">
+      <div class="context-img-caption">📍 La Boquilla, Cartagena — ecosistema de manglar en peligro por contaminación</div>
+    </div>
+
+    <div class="eco-sim-panel">
+      <div class="eco-sim-title">🌡️ Controles del ecosistema</div>
+      <div class="eco-health-display">
+        <div>
+          <div class="eco-health-num" id="healthNum">85%</div>
+          <div class="eco-health-label">Salud del ecosistema</div>
+        </div>
+        <div class="eco-track">
+          <div class="eco-fill" id="healthFill" style="width:85%;background:linear-gradient(90deg,#34d399,#0d9488)"></div>
+        </div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.8)" id="healthStatus">🟢 Ecosistema sano</div>
+      </div>
+      <div class="eco-visual-strip" id="ecoVisual">🦀🐠🦈🐚🌿🐢🦜🐬🦭🐙</div>
+
+      <div class="var-slider-row">
+        <label>🌡️ Temperatura del agua <span id="lblTemp">28°C</span></label>
+        <input type="range" min="20" max="40" value="28" id="sliderTemp" oninput="updateSim()">
+      </div>
+      <div class="var-slider-row">
+        <label>🏭 Contaminación <span id="lblContam">10%</span></label>
+        <input type="range" min="0" max="100" value="10" id="sliderContam" oninput="updateSim()">
+      </div>
+      <div class="var-slider-row">
+        <label>🎣 Intensidad de pesca <span id="lblPesca">20%</span></label>
+        <input type="range" min="0" max="100" value="20" id="sliderPesca" oninput="updateSim()">
+      </div>
+    </div>
+
+    <div class="hipotesis-box">
+      <div style="font-weight:800;color:#c2410c;margin-bottom:10px">🧪 Reto de Hipótesis Científica</div>
+      <div class="act-scenario">
+        📍 <strong>Situación:</strong> El manglar de La Boquilla, en Cartagena de Indias, está perdiendo biodiversidad. Los pescadores reportan menos peces y los corales cercanos se están blanqueando. <strong>¿Qué variable cambiarías para restaurar el ecosistema y por qué?</strong>
+      </div>
+      <label style="font-weight:700;font-size:0.88rem;display:block;margin-bottom:6px">✏️ Escribe tu hipótesis:</label>
+      <textarea class="hip-textarea" id="hipText" placeholder="Si yo [cambio X variable]... entonces [efecto esperado]... porque [razón científica]..."></textarea>
+      <button class="btn-verificar" onclick="checkHipotesis()">🔍 Verificar mi hipótesis</button>
+    </div>
+  </div>
+
+  <!-- Drag & Drop -->
+  <div class="card">
+    <div class="card-title" style="color:var(--verde-dark)">🕹️ ¡Clasifica los seres vivos!</div>
+    <p style="margin-bottom:14px;font-size:0.93rem;color:#374151">Arrastra cada organismo a su rol en el ecosistema. ¡Gana 10 puntos por cada acierto!</p>
+    <div class="drag-title">🖐️ Arrastra estos organismos:</div>
+    <div class="drag-items" id="dragSource"></div>
+    <div class="drop-zones" id="dropZones">
+      <div class="drop-zone" data-category="productor" ondragover="allowDrop(event)" ondrop="drop(event)">
+        <div class="drop-zone-label">🌿 Productores</div>
+        <div style="font-size:0.75rem;color:#888;margin-bottom:8px">(Fabrican su propio alimento)</div>
+      </div>
+      <div class="drop-zone" data-category="consumidor" ondragover="allowDrop(event)" ondrop="drop(event)">
+        <div class="drop-zone-label">🦁 Consumidores</div>
+        <div style="font-size:0.75rem;color:#888;margin-bottom:8px">(Se alimentan de otros)</div>
+      </div>
+      <div class="drop-zone" data-category="descomponedor" ondragover="allowDrop(event)" ondrop="drop(event)">
+        <div class="drop-zone-label">🍄 Descomponedores</div>
+        <div style="font-size:0.75rem;color:#888;margin-bottom:8px">(Reciclan la materia)</div>
+      </div>
+    </div>
+    <div id="dragFeedback" style="text-align:center;font-weight:700;margin-top:14px;font-size:0.93rem"></div>
+  </div>
+</section>
+
+<!-- ===== MÓDULO 3: CUERPO HUMANO ===== -->
+<section id="cuerpo" class="section">
+  <div class="card">
+    <div class="module-tag">📗 Módulo 3</div>
+    <div class="card-title" style="color:var(--azul-dark)">🫀 Los Sistemas del Cuerpo Humano</div>
+
+    <div class="context-img-wrap">
+      <img src="https://image.magnific.com/vector-gratis/diagrama-que-muestra-los-sistemas-del-cuerpo-humano_1308-3154.jpg" alt="Biología humana">
+      <div class="context-img-caption">🔬 El cuerpo humano: más de 37 billones de células trabajando en perfecta coordinación</div>
+    </div>
+
+    <p class="intro-text">Tu cuerpo es una máquina increíble formada por sistemas que trabajan juntos. Todos dependen de la <strong>célula</strong> como unidad básica. ¡Haz clic en cada sistema para explorar!</p>
+
+    <div class="systems-grid" id="systemsGrid">
+      <div class="system-card" onclick="showSystem('circulatorio',this)"><span class="sys-icon">❤️</span>Circulatorio</div>
+      <div class="system-card" onclick="showSystem('respiratorio',this)"><span class="sys-icon">🫁</span>Respiratorio</div>
+      <div class="system-card" onclick="showSystem('digestivo',this)"><span class="sys-icon">🍽️</span>Digestivo</div>
+      <div class="system-card" onclick="showSystem('oseo',this)"><span class="sys-icon">🦴</span>Óseo</div>
+      <div class="system-card" onclick="showSystem('nervioso',this)"><span class="sys-icon">🧠</span>Nervioso</div>
+      <div class="system-card" onclick="showSystem('muscular',this)"><span class="sys-icon">💪</span>Muscular</div>
+    </div>
+
+    <div id="systemDetail" class="system-detail-wrap">
+      <div class="sys-detail-top">
+        <img class="sys-detail-img" id="sysImg" src="" alt="">
+        <div class="sys-detail-text">
+          <h3 id="sysTitle"></h3>
+          <p id="sysDesc"></p>
+        </div>
+      </div>
+      <div class="system-parts" id="sysParts"></div>
+      <div class="sys-fact-box" id="sysFactBox">👆 Haz clic en una parte para conocer su función</div>
+      <div class="fun-fact-strip"><strong>💡 ¿Sabías que...</strong> <span id="sysFun"></span></div>
+    </div>
+  </div>
+
+  <!-- Curiosidades con imágenes -->
+  <div class="card">
+    <div class="card-title" style="color:var(--azul-dark)">🤩 Datos Curiosos del Cuerpo Humano</div>
+    <div class="curiosidades-grid">
+      <div class="curiosidad-card" onclick="addScore(5);showModal('❤️','El Corazón','Late aproximadamente 100.000 veces al día, bombeando alrededor de 7.500 litros de sangre. ¡En una vida son 3.000 millones de latidos!',5)">
+        <img class="curiosidad-img" src="https://tse4.mm.bing.net/th/id/OIP.2qRAPuQ3dA_3JxhrOSZn8wHaHa?pid=Api&P=0&h=180" alt="Corazón">
+        <div class="curiosidad-body"><strong style="color:var(--coral)">100,000</strong><span>latidos del corazón por día</span></div>
+      </div>
+      <div class="curiosidad-card" onclick="addScore(5);showModal('🦴','Los Huesos','El adulto tiene 206 huesos, pero un bebé nace con 270-300. Con el tiempo muchos se fusionan. El hueso más largo es el fémur.',5)">
+        <img class="curiosidad-img" src="https://img.magnific.com/vector-premium/huesos-humanos-elementos-esqueleto-realistas-ilustracion-anatomia-infografia-medica-pelvis-articulaciones-costillas-columna-craneo-humano-vector-set-ilustracion-3d-modelo-partes-esqueleticas_176516-1795.jpg" alt="Huesos">
+        <div class="curiosidad-body"><strong style="color:var(--azul)">206</strong><span>huesos en el adulto</span></div>
+      </div>
+      <div class="curiosidad-card" onclick="addScore(5);showModal('🧠','El Cerebro','Contiene aproximadamente 86.000 millones de neuronas. Las señales nerviosas viajan a más de 400 km/h.',5)">
+        <img class="curiosidad-img" src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&q=70&auto=format" alt="Cerebro">
+        <div class="curiosidad-body"><strong style="color:var(--morado)">86,000M</strong><span>neuronas en el cerebro</span></div>
+      </div>
+      <div class="curiosidad-card" onclick="addScore(5);showModal('🫁','Los Pulmones','Respiramos unas 20.000 veces al día. Los pulmones tienen 600 millones de alvéolos con una superficie total de 70 m².',5)">
+        <img class="curiosidad-img" src="https://respiracion.net/wp-content/uploads/detalle-ilustrado-sistema-respiratorio.webp" alt="Pulmones" onerror="this.src='https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?w=400&q=70&auto=format'">
+        <div class="curiosidad-body"><strong style="color:var(--teal)">20,000</strong><span>respiraciones por día</span></div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:0.82rem;color:var(--muted);margin-top:12px">💡 Haz clic para descubrir más y ganar +5 puntos</p>
+  </div>
+</section>
+
+<!-- ===== MÓDULO 4: MÉTODO CIENTÍFICO ===== -->
+<section id="metodo" class="section">
+  <div class="card">
+    <div class="module-tag">📗 Módulo 4</div>
+    <div class="card-title" style="color:#c2410c">🔭 El Método Científico</div>
+
+    <div class="context-img-wrap">
+      <img src="https://images.unsplash.com/photo-1618053448701-5220304dc9ae?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Laboratorio científico">
+      <div class="context-img-caption">🔬 Los científicos usan el método científico para descubrir cómo funciona el mundo</div>
+    </div>
+
+    <p class="intro-text">El método científico es la forma en que los científicos y científicas investigan el mundo. ¡Tiene 5 pasos que todo buen científico debe seguir! Haz clic en cada paso para expandirlo.</p>
+
+    <div class="metodo-steps">
+      <div class="metodo-step">
+        <div class="step-connector">
+          <div class="step-circle" style="background:linear-gradient(135deg,#f59e0b,#d97706)">1</div>
+          <div class="step-line" style="background:linear-gradient(to bottom,#f59e0b,#ef4444)"></div>
+        </div>
+        <div class="step-body" onclick="toggleStep(this)">
+          <div class="step-title" style="color:#d97706">👁️ Observación</div>
+          <div class="step-brief">Miras el mundo con atención y detectas algo interesante</div>
+          <div class="step-detail">
+            La observación es el punto de partida. Un buen científico mira con atención su entorno y registra todo lo que nota. Por ejemplo: <em>«Los corales del arrecife de La Boquilla están cambiando de color»</em>.
+            <img class="step-img" src="https://img.magnific.com/fotos-premium/curioso-nino-preescolar-lupa-explorando-naturaleza_875072-77.jpg?w=2000" alt="Observación científica" onerror="this.src='https://images.unsplash.com/photo-1532094349884-543559c6b3e0?w=600&q=70&auto=format'">
+          </div>
+        </div>
+      </div>
+
+      <div class="metodo-step">
+        <div class="step-connector">
+          <div class="step-circle" style="background:linear-gradient(135deg,#ef4444,#dc2626)">2</div>
+          <div class="step-line" style="background:linear-gradient(to bottom,#ef4444,#8b5cf6)"></div>
+        </div>
+        <div class="step-body" onclick="toggleStep(this)">
+          <div class="step-title" style="color:#dc2626">❓ Hipótesis</div>
+          <div class="step-brief">Una respuesta provisional y verificable a tu pregunta</div>
+          <div class="step-detail">
+            La hipótesis es tu «respuesta inteligente» antes de experimentar. Debe ser verificable y seguir la estructura: <em>«Si [causa]... entonces [efecto]... porque [razón]»</em>. Ejemplo: <em>«Si la temperatura del agua sube 3°C, entonces los corales se blanquearán porque expulsarán las algas simbióticas»</em>.
+            <img class="step-img" src="https://cdn.pixabay.com/photo/2024/05/31/07/56/ai-generated-8800026_1280.png" alt="Hipótesis">
+          </div>
+        </div>
+      </div>
+
+      <div class="metodo-step">
+        <div class="step-connector">
+          <div class="step-circle" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">3</div>
+          <div class="step-line" style="background:linear-gradient(to bottom,#8b5cf6,#10b981)"></div>
+        </div>
+        <div class="step-body" onclick="toggleStep(this)">
+          <div class="step-title" style="color:#7c3aed">🧪 Experimentación</div>
+          <div class="step-brief">Diseñas y realizas experimentos para probar tu hipótesis</div>
+          <div class="step-detail">
+            En el experimento, cambias <strong>una sola variable</strong> (variable independiente) y observas qué pasa con otra (variable dependiente). Todos los demás factores se mantienen iguales. Así puedes estar seguro de qué causó el efecto.
+            <img class="step-img" src="https://tse1.mm.bing.net/th/id/OIP.SnQaxKuwhVVQqZ3F-99UGAHaB2?pid=Api&P=0&h=180" alt="Experimentación" onerror="this.src='https://images.unsplash.com/photo-1532094349884-543559c6b3e0?w=600&q=70&auto=format'">
+          </div>
+        </div>
+      </div>
+
+      <div class="metodo-step">
+        <div class="step-connector">
+          <div class="step-circle" style="background:linear-gradient(135deg,#10b981,#059669)">4</div>
+          <div class="step-line" style="background:linear-gradient(to bottom,#10b981,#0ea5e9)"></div>
+        </div>
+        <div class="step-body" onclick="toggleStep(this)">
+          <div class="step-title" style="color:#059669">📊 Análisis de Resultados</div>
+          <div class="step-brief">Organizas y analizas los datos que obtuviste</div>
+          <div class="step-detail">
+            Registras los datos en tablas o gráficas y buscas patrones. ¿Los resultados confirman tu hipótesis? ¿O la contradicen? Aquí entra la matemática y el pensamiento crítico.
+            <img class="step-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=70&auto=format" alt="Análisis datos">
+          </div>
+        </div>
+      </div>
+
+      <div class="metodo-step">
+        <div class="step-connector">
+          <div class="step-circle" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)">5</div>
+          <div class="step-line" style="display:none"></div>
+        </div>
+        <div class="step-body" onclick="toggleStep(this)">
+          <div class="step-title" style="color:#0284c7">📝 Conclusión</div>
+          <div class="step-brief">Explicas qué aprendiste y si tu hipótesis fue correcta</div>
+          <div class="step-detail">
+            La conclusión resume qué aprendiste. Si la hipótesis fue incorrecta, ¡no es un fracaso! Los científicos aprenden más de los errores que de los éxitos. La ciencia avanza equivocándose y corrigiéndose.
+            <img class="step-img" src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=70&auto=format" alt="Conclusión científica">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actividad interactiva método científico -->
+  <div class="card">
+    <div class="card-title" style="color:#c2410c">🏋️ ¡Practica el Método Científico!</div>
+    <div class="metodo-actividad">
+      <div class="act-title">🔬 Caso: Los peces del manglar de La Boquilla</div>
+      <div class="act-scenario">
+        🌊 Un estudiante de grado 5° nota que hay menos peces en el manglar de La Boquilla que hace 5 años. ¿Cómo aplicaría el método científico para investigar esto? Completa cada paso haciendo clic:
+      </div>
+      <div class="act-steps-list" id="metodoPasos">
+        <div class="act-step-row" onclick="completeStep(this,1)">
+          <div class="act-step-num">1</div>
+          <div>👁️ <strong>Observar:</strong> «Hay menos peces en el manglar que antes»</div>
+        </div>
+        <div class="act-step-row" onclick="completeStep(this,2)">
+          <div class="act-step-num">2</div>
+          <div>❓ <strong>Hipótesis:</strong> «Si la contaminación aumentó, entonces habrá menos peces porque el agua no es habitable»</div>
+        </div>
+        <div class="act-step-row" onclick="completeStep(this,3)">
+          <div class="act-step-num">3</div>
+          <div>🧪 <strong>Experimentar:</strong> Mido el nivel de contaminantes del agua en distintos puntos del manglar</div>
+        </div>
+        <div class="act-step-row" onclick="completeStep(this,4)">
+          <div class="act-step-num">4</div>
+          <div>📊 <strong>Analizar:</strong> En zonas con más contaminación hay menos especies de peces</div>
+        </div>
+        <div class="act-step-row" onclick="completeStep(this,5)">
+          <div class="act-step-num">5</div>
+          <div>📝 <strong>Concluir:</strong> La contaminación es la causa principal de la disminución de peces en el manglar</div>
+        </div>
+      </div>
+      <div id="metodoProgress" style="text-align:center;margin-top:12px;font-weight:700;color:var(--verde-dark);font-size:0.95rem"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MÓDULO 5: QUIZ ===== -->
+<section id="quiz" class="section">
+  <div class="card">
+    <div class="module-tag">🏆 Evaluación Final</div>
+    <div class="card-title" style="color:#c2410c">🧠 Quiz: ¿Qué tanto aprendiste?</div>
+
+    <div class="quiz-container">
+      <div id="quizMain">
+        <div class="quiz-progress">
+          <div class="quiz-progress-bar" id="quizProgress" style="width:0%"></div>
+        </div>
+        <div style="text-align:right;font-size:0.85rem;color:var(--muted);margin-bottom:12px">Pregunta <strong id="qNum">1</strong> de 10</div>
+        <img class="quiz-q-img" id="qImg" src="" alt="">
+        <div class="quiz-question" id="qText"></div>
+        <div class="quiz-options" id="qOptions"></div>
+        <div class="quiz-feedback" id="qFeedback"></div>
+        <div class="quiz-nav">
+          <button class="btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Siguiente →</button>
+        </div>
+      </div>
+
+      <div class="quiz-result" id="quizResult">
+        <div class="result-emoji" id="resultEmoji"></div>
+        <div class="result-title" id="resultTitle"></div>
+        <div class="stars" id="resultStars"></div>
+        <img class="result-award-img" src="https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=400&q=70&auto=format" alt="Premio" id="resultImg">
+        <div class="result-score" id="resultScore"></div>
+        <div style="margin-top:20px">
+          <button class="btn-primary" onclick="restartQuiz()">🔄 Intentar de nuevo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-logos">
+    <div class="footer-badge">🏫 I.E. Soledad Acosta de Samper</div>
+    <div class="footer-badge">🌊 Cartagena de Indias, Colombia</div>
+    <div class="footer-badge">📚 Grado 5° — Ciencias Naturales</div>
+    <div class="footer-badge">🎓 Maestría TIC — 2026</div>
+  </div>
+  <p>Desarrollado por Luz Milena Piñeros Gamboa & Yuli Saltarín Sánchez · Docente: Liliana Andrea Castaño Lotero</p>
+  <p style="margin-top:6px;font-size:0.78rem">Fundamentado en: Constructivismo (Vygotsky,1978) · Aprendizaje Significativo (Ausubel,1963) · Gamificación (Kapp,2012) · DUA (CAST,2018)</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-card">
+    <div class="modal-icon" id="modalIcon"></div>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-msg" id="modalMsg"></div>
+    <div class="modal-pts" id="modalPts"></div>
+    <button class="btn-modal" onclick="closeModal()">¡Entendido! →</button>
+  </div>
+</div>
+
+<script>
+// =================== ESTADO ===================
+let totalScore = 0, badges = 0, streak = 0, streakMax = 0;
+
+// =================== SCORE ===================
+function addScore(n){
+  totalScore += n; streak++;
+  if(streak > streakMax) streakMax = streak;
+  document.getElementById('totalScore').textContent = totalScore;
+  document.getElementById('streak').textContent = streak;
+  updateLevel();
+}
+function updateLevel(){
+  const lvl = Math.floor(totalScore/50)+1;
+  const lvls = ['Explorador','Aprendiz','Científico','Investigador','Biólogo Jr.','Experto 360°'];
+  document.getElementById('levelBadge').textContent = 'Nv.'+lvl+' — '+(lvls[Math.min(lvl-1,lvls.length-1)]);
+}
+function earnBadge(){ badges++; document.getElementById('badgeCount').textContent = badges; }
+
+// =================== MODAL ===================
+function showModal(icon,title,msg,pts){
+  document.getElementById('modalIcon').textContent = icon;
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalMsg').textContent = msg;
+  document.getElementById('modalPts').textContent = pts ? '+'+pts+' puntos ganados ⭐' : '';
+  document.getElementById('modalOverlay').classList.add('show');
+}
+function closeModal(){ document.getElementById('modalOverlay').classList.remove('show'); }
+
+// =================== TABS ===================
+function switchTab(tab,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+// =================== ORGANELOS ===================
+const orgData = {
+  membrana:{name:'Membrana Celular 🛡️',desc:'Capa que rodea y protege la célula. Está formada por fosfolípidos y proteínas. Controla todo lo que entra y sale de la célula, manteniendo el equilibrio interno.',analogy:'🚪 Es como la puerta de seguridad de un edificio: decide quién entra y quién sale.',id:'cp-membrana'},
+  nucleo:{name:'Núcleo 🧬',desc:'El centro de control de la célula. Contiene el ADN con toda la información genética. Dirige todas las actividades celulares y la reproducción.',analogy:'🧠 Es como el cerebro o el director general de la célula.',id:'cp-nucleo'},
+  nucleolo:{name:'Nucléolo 🔵',desc:'Estructura dentro del núcleo donde se produce el ARN ribosómico. Es esencial para fabricar los ribosomas que producirán proteínas.',analogy:'📡 Es como la antena de comunicación dentro del cerebro de la célula.',id:'cp-nucleolo'},
+  mitocondria:{name:'Mitocondria ⚡',desc:'La central energética de la célula. Realiza la respiración celular transformando glucosa y oxígeno en ATP (energía) que usa la célula para todas sus funciones.',analogy:'🍳 Es como la cocina-central eléctrica de la célula: produce toda la energía.',id:'cp-mitocondria'},
+  vacuola:{name:'Vacuola 💧',desc:'Saco membranoso que almacena agua, nutrientes y desechos. En células vegetales es enorme y mantiene la firmeza de la planta. En células animales son más pequeñas.',analogy:'🪣 Es como el tanque de almacenamiento y la bodega de la célula.',id:'cp-vacuola'},
+  ribosoma:{name:'Ribosoma 🟡',desc:'Pequeñas partículas que leen el ARN mensajero y fabrican proteínas. Son los más abundantes en la célula. Pueden estar libres o unidos al retículo endoplásmico.',analogy:'🏭 Es como la fábrica de proteínas de la célula: produce las "herramientas" necesarias.',id:'cp-ribosoma'},
+  re:{name:'Retículo Endoplásmico 🌀',desc:'Sistema de membranas que transporta sustancias dentro de la célula. El rugoso (con ribosomas) fabrica proteínas; el liso fabrica lípidos y desintoxica.',analogy:'🛣️ Es como la red de carreteras internas de la célula.',id:'cp-re'},
+  golgi:{name:'Aparato de Golgi 📦',desc:'Recibe proteínas del retículo endoplásmico, las modifica, empaqueta y envía a su destino dentro o fuera de la célula. Es como una oficina de correos interna.',analogy:'📮 Es el sistema postal de la célula: recibe, modifica y envía paquetes.',id:'cp-golgi'},
+  cloroplasto:{name:'Cloroplasto 🌿',desc:'Presente solo en células vegetales y algas. Contiene clorofila (pigmento verde) y realiza la fotosíntesis: convierte luz solar + CO₂ + agua en glucosa y oxígeno.',analogy:'☀️ Es como los paneles solares de la célula vegetal: capturan energía del sol.',id:'cp-cloroplasto'},
+  citoplasma:{name:'Citoplasma 🌊',desc:'Medio acuoso (70% agua) que llena el interior de la célula y rodea a los orgánulos. En él ocurren miles de reacciones químicas. Mantiene la forma de la célula.',analogy:'🏊 Es como el agua de una piscina donde flotan todos los orgánulos.',id:'cp-citoplasma'},
+};
+
+function showOrganelle(key){
+  const o = orgData[key];
+  if(!o) return;
+  document.getElementById('org-name').textContent = o.name;
+  document.getElementById('org-desc').textContent = o.desc;
+  document.getElementById('org-analogy').textContent = o.analogy;
+  // highlight SVG
+  document.querySelectorAll('.cell-part').forEach(el=>el.classList.remove('active-glow'));
+  const el = document.getElementById(o.id);
+  if(el) el.classList.add('active-glow');
+  // highlight list
+  document.querySelectorAll('.organelle-item').forEach(li=>li.classList.remove('active-item'));
+  const li = document.querySelector('.organelle-item[data-key="'+key+'"]');
+  if(li) li.classList.add('active-item');
+  addScore(5);
+}
+
+// =================== ECOSISTEMAS ===================
+function showEco(id,btn){
+  document.querySelectorAll('.eco-content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.eco-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('eco-'+id).classList.add('active');
+  if(btn) btn.classList.add('active');
+  addScore(8);
+}
+
+// Simulador
+function updateSim(){
+  const temp = +document.getElementById('sliderTemp').value;
+  const contam = +document.getElementById('sliderContam').value;
+  const pesca = +document.getElementById('sliderPesca').value;
+  document.getElementById('lblTemp').textContent = temp+'°C';
+  document.getElementById('lblContam').textContent = contam+'%';
+  document.getElementById('lblPesca').textContent = pesca+'%';
+
+  let health = 100;
+  if(temp>32) health -= (temp-32)*5;
+  if(temp<22) health -= (22-temp)*4;
+  health -= contam*0.65;
+  health -= pesca*0.35;
+  health = Math.max(0,Math.min(100,Math.round(health)));
+
+  document.getElementById('healthNum').textContent = health+'%';
+  const fill = document.getElementById('healthFill');
+  fill.style.width = health+'%';
+  fill.style.background = health>60?'linear-gradient(90deg,#34d399,#0d9488)':
+    health>30?'linear-gradient(90deg,#fbbf24,#f97316)':
+    'linear-gradient(90deg,#f87171,#dc2626)';
+
+  const status = document.getElementById('healthStatus');
+  status.textContent = health>60?'🟢 Ecosistema sano':health>30?'🟡 Ecosistema en riesgo':'🔴 Ecosistema degradado';
+
+  const animals = ['🦀','🐠','🦈','🐚','🌿','🐢','🦜','🐬','🦭','🐙','🦑','🐡'];
+  const count = Math.max(1,Math.round(health/100*animals.length));
+  document.getElementById('ecoVisual').textContent = animals.slice(0,count).join(' ');
+  addScore(2);
+}
+
+function checkHipotesis(){
+  const txt = document.getElementById('hipText').value.trim();
+  if(txt.length<15){
+    showModal('⚠️','Hipótesis incompleta','Tu hipótesis debe tener al menos una oración completa. Usa la estructura: «Si [cambio X]... entonces [efecto]... porque [razón]».',0);
+    return;
+  }
+  addScore(25);
+  earnBadge();
+  showModal('🧪','¡Hipótesis científica registrada!',
+    'Excelente trabajo científico. Recuerda: una buena hipótesis conecta una causa con un efecto esperado y puede ser probada experimentalmente. El siguiente paso es ¡experimentar con los sliders!',25);
+}
+
+// =================== DRAG & DROP ===================
+const dragItems = [
+  {label:'🌿 Algas marinas',category:'productor'},
+  {label:'🌴 Mangle',category:'productor'},
+  {label:'🦀 Cangrejo',category:'consumidor'},
+  {label:'🦈 Tiburón',category:'consumidor'},
+  {label:'🐬 Delfín',category:'consumidor'},
+  {label:'🍄 Hongo',category:'descomponedor'},
+  {label:'🦠 Bacteria',category:'descomponedor'},
+  {label:'🌵 Cactus',category:'productor'},
+];
+let dragIdx = null, dragCorrect = 0;
+function initDrag(){
+  const src = document.getElementById('dragSource');
+  if(!src) return;
+  src.innerHTML='';
+  dragItems.forEach((item,i)=>{
+    const el = document.createElement('div');
+    el.className='drag-item';
+    el.textContent=item.label;
+    el.draggable=true;
+    el.dataset.idx=i;
+    el.ondragstart=e=>{dragIdx=i;el.classList.add('dragging')};
+    el.ondragend=e=>el.classList.remove('dragging');
+    // Touch support
+    el.addEventListener('touchstart',e=>{dragIdx=i},{ passive:true });
+    src.appendChild(el);
+  });
+}
+function allowDrop(e){ e.preventDefault(); e.currentTarget.classList.add('over'); }
+function drop(e){
+  e.preventDefault();
+  const zone = e.currentTarget;
+  zone.classList.remove('over');
+  if(dragIdx===null) return;
+  const item = dragItems[dragIdx];
+  const correct = item.category === zone.dataset.category;
+  const tag = document.createElement('span');
+  tag.textContent = item.label;
+  tag.style.cssText='background:'+(correct?'#059669':'#dc2626')+';color:#fff;border-radius:20px;padding:5px 12px;font-weight:700;font-size:0.82rem;margin:3px;display:inline-block;';
+  zone.appendChild(tag);
+  const src = document.getElementById('dragSource');
+  Array.from(src.children).forEach(el=>{ if(parseInt(el.dataset.idx)===dragIdx) el.remove(); });
+  if(correct){
+    zone.classList.add('correct');
+    dragCorrect++;
+    addScore(10);
+    document.getElementById('dragFeedback').innerHTML='✅ ¡Correcto! +10 puntos 🎉';
+    if(dragCorrect===3) earnBadge();
+  } else {
+    zone.classList.add('wrong');
+    setTimeout(()=>zone.classList.remove('wrong'),600);
+    document.getElementById('dragFeedback').innerHTML='❌ Incorrecto. ¡Recuerda las definiciones de productores, consumidores y descomponedores!';
+    streak = 0; document.getElementById('streak').textContent=streak;
+  }
+  setTimeout(()=>zone.classList.remove('correct'),800);
+  dragIdx=null;
+}
+initDrag();
+
+// =================== CUERPO HUMANO ===================
+const sysData = {
+  circulatorio:{img:'https://www.aboutespanol.com/thmb/YGUo1gXcvJaXdF1-pCZzs3JzmRI=/1733x1733/filters:fill(auto,1)/vasos-sanguineos-sistema-cardiovascular-56a299c13df78cf77277f46b.jpg',
+    title:'❤️ Sistema Circulatorio',desc:'Transporta sangre, oxígeno y nutrientes a todas las células del cuerpo. El corazón bombea sin parar, latiendo unas 100.000 veces al día.',
+    parts:{Corazón:'Bomba muscular de 4 cámaras que impulsa la sangre. Late ~70 veces por minuto en reposo.',Venas:'Vasos que llevan sangre desoxigenada de vuelta al corazón. Tienen válvulas que evitan el reflujo.',Arterias:'Llevan sangre oxigenada desde el corazón hacia los tejidos. Son elásticas y resistentes.',Capilares:'Vasos microscópicos donde el O₂ y nutrientes pasan a las células y recogen CO₂ y desechos.'},
+    fun:'El corazón late más de 3.000 millones de veces en una vida promedio.'},
+  respiratorio:{img:'https://tse1.mm.bing.net/th/id/OIP.5kg_qC_Q-Kr4Kuip8TvzmAHaFj?pid=Api&P=0&h=180',
+    title:'🫁 Sistema Respiratorio',desc:'Toma el oxígeno del aire y lo lleva a la sangre. Elimina el CO₂. El O₂ que capta es esencial para que las mitocondrias produzcan energía.',
+    parts:{Nariz:'Filtra, calienta y humedece el aire que entra. Los cilios atrapan partículas y bacterias.',Tráquea:'Tubo de ~12 cm con anillos cartilaginosos que conecta la faringe con los bronquios.',Pulmones:'Órganos esponjosos con ~600 millones de alvéolos. Intercambian O₂ y CO₂ con la sangre.',Alvéolos:'Sacos microscópicos donde ocurre el intercambio gaseoso: O₂ entra a la sangre y CO₂ sale.',Diafragma:'Músculo bajo los pulmones que controla la respiración expandiendo el tórax.'},
+    fun:'Respiramos unas 20.000 veces al día. La superficie de intercambio de los alvéolos equivale a 70 m².'},
+  digestivo:{img:'https://tse1.mm.bing.net/th/id/OIP.Z92SHeRThibmgTR6paY8CQHaF7?pid=Api&P=0&h=180t',
+    title:'🍽️ Sistema Digestivo',desc:'Descompone los alimentos en nutrientes absorbibles. La energía que obtiene permite a las mitocondrias de las células producir ATP.',
+    parts:{Boca:'Inicia la digestión mecánica (masticación) y química (amilasa salival que rompe almidones).',Estómago:'Mezcla con jugos gástricos ácidos (HCl, pepsina). Descompone proteínas.',Intestino_Delgado:'6-7 metros de absorción de nutrientes. Sus vellosidades multiplican la superficie de absorción.',Intestino_Grueso:'Absorbe agua y electrolitos. Forma las heces. Alberga miles de millones de bacterias beneficiosas.'},
+    fun:'El intestino delgado tiene ~5 millones de vellosidades que si se estiraran cubrirían una cancha de tenis.'},
+  oseo:{img:'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi9t11ESi7mVVxlEO-0ilfGCnTwO6hoC0JE2BPML7uL4xltyZLG6gYEb_d9YqrG4XhtMqzHcRAxAPTeTGhYnzZJ7-8vDuJ_DakEFNPrFsHc6oHVuQTA38yM5JMYKldqr0U8yPOSn1v2kvp52pSZgeClnASAHXtfTIviYojktjAeHWwgGtUGBTe1XrY5v6Q/s6685/Sistema%20Oseo%20V4.png',
+    title:'🦴 Sistema Óseo',desc:'El esqueleto: estructura de soporte, protección de órganos y producción de células sanguíneas en la médula ósea.',
+    parts:{Cráneo:'22 huesos que protegen el cerebro. La mayoría están fusionados en el adulto.',Columna_Vertebral:'33 vértebras que protegen la médula espinal y dan flexibilidad al tronco.',Fémur:'El hueso más largo y fuerte del cuerpo. Soporta el peso corporal.',Costillas:'12 pares que forman la caja torácica protegiendo corazón y pulmones.'},
+    fun:'Un bebé nace con 270-300 huesos, pero muchos se fusionan: el adulto tiene 206.'},
+  nervioso:{img:'https://vitaliasalud.com/wp-content/uploads/2021/07/sistema-nervioso.jpg',
+    title:'🧠 Sistema Nervioso',desc:'Controla todas las funciones del cuerpo: movimiento, pensamiento, emociones y funciones automáticas como respirar. Cada neurona se conecta con miles de otras.',
+    parts:{Cerebro:'El órgano más complejo: 86.000 millones de neuronas que controlan pensamiento, memoria y movimiento.',Cerebelo:'Coordina el equilibrio, la postura y los movimientos precisos y voluntarios.',Médula_Espinal:'Transmite señales entre el cerebro y el resto del cuerpo. También tiene reflejos automáticos.',Neuronas:'Células especializadas que transmiten señales eléctricas a más de 400 km/h.'},
+    fun:'Las señales nerviosas viajan a más de 400 km/h — más rápido que un auto de Fórmula 1.'},
+  muscular:{img:'https://clinicaem.com/wp-content/uploads/2025/03/Sistema-muscular.jpg',
+    title:'💪 Sistema Muscular',desc:'Más de 650 músculos permiten el movimiento, mantienen la postura y generan calor corporal trabajando con el sistema óseo.',
+    parts:{Bíceps:'Músculo del brazo que se contrae para doblarlo. Trabaja opuesto al tríceps.',Corazón:'Músculo cardíaco especializado que nunca descansa. Late automáticamente toda la vida.',Diafragma:'Músculo cúpula del tórax que controla la respiración involuntaria.',Cuádriceps:'Grupo de 4 músculos del muslo que extienden la rodilla y permiten caminar, correr y saltar.'},
+    fun:'Sonreír usa solo 17 músculos, pero fruncir el ceño usa 43. ¡Sonríe más para ahorrar energía!'},
+};
+function showSystem(key,btn){
+  const d = sysData[key];
+  document.querySelectorAll('.system-card').forEach(c=>c.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const det = document.getElementById('systemDetail');
+  det.classList.add('active');
+  document.getElementById('sysImg').src = d.img;
+  document.getElementById('sysTitle').textContent = d.title;
+  document.getElementById('sysDesc').textContent = d.desc;
+  document.getElementById('sysFun').textContent = d.fun;
+  const parts = document.getElementById('sysParts');
+  parts.innerHTML='';
+  Object.entries(d.parts).forEach(([name,fact])=>{
+    const btn2=document.createElement('span');
+    btn2.className='sys-part';
+    btn2.textContent=name.replace(/_/g,' ');
+    btn2.onclick=()=>{
+      document.getElementById('sysFactBox').innerHTML='<strong>'+name.replace(/_/g,' ')+':</strong> '+fact;
+      addScore(5);
+    };
+    parts.appendChild(btn2);
+  });
+  document.getElementById('sysFactBox').textContent='👆 Haz clic en una parte para saber más';
+  addScore(8);
+}
+
+// =================== MÉTODO CIENTÍFICO ===================
+let metodoDone=0;
+function toggleStep(el){
+  const detail = el.querySelector('.step-detail');
+  detail.classList.toggle('open');
+  el.classList.toggle('expanded');
+  if(detail.classList.contains('open')) addScore(5);
+}
+function completeStep(el,num){
+  if(el.classList.contains('done')) return;
+  el.classList.add('done');
+  metodoDone++;
+  addScore(10);
+  const prog=document.getElementById('metodoProgress');
+  if(metodoDone>=5){
+    prog.textContent='🏆 ¡Completaste todos los pasos del método científico! +10 puntos extra';
+    addScore(10); earnBadge();
+  } else {
+    prog.textContent='✅ Paso '+num+' completado — '+metodoDone+' de 5 pasos';
+  }
+}
+
+// =================== QUIZ ===================
+const quizData=[
+  {q:'¿Cuál organelo es la "central energética" de la célula?',
+   img:'https://images.unsplash.com/photo-1576086213369-97a306d36557?w=800&q=70&auto=format',
+   opts:['La membrana celular','El núcleo','La mitocondria','La vacuola'],ans:2,
+   exp:'¡La mitocondria produce ATP mediante la respiración celular! Es como la cocina-central eléctrica.'},
+  {q:'¿Qué organelo contiene el ADN y dirige todas las funciones celulares?',
+   img:'https://tse4.mm.bing.net/th/id/OIP.wSA1jTAtrzOuBUVAtZv5QQHaEK?pid=Api&P=0&h=180',
+   opts:['El ribosoma','El núcleo','El aparato de Golgi','El citoplasma'],ans:1,
+   exp:'¡El núcleo! Contiene el ADN con toda la información genética. Es el "cerebro" de la célula.'},
+  {q:'¿Qué es un ecosistema?',
+   img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=70&auto=format',
+   opts:['Solo los animales de un lugar','El agua de un río','Los seres vivos y su ambiente no vivo interactuando','Un tipo de célula vegetal'],ans:2,
+   exp:'¡Un ecosistema incluye todos los seres vivos (biótico) y los elementos no vivos (abiótico) de un lugar!'},
+  {q:'¿Qué organismos producen su propio alimento mediante fotosíntesis?',
+   img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=70&auto=format',
+   opts:['Los hongos','Los animales carnívoros','Las plantas y algas','Las bacterias descomponedoras'],ans:2,
+   exp:'¡Las plantas y algas son los productores! Usan luz solar, CO₂ y agua para fabricar glucosa y liberar O₂.'},
+  {q:'¿Qué sistema del cuerpo transporta oxígeno y nutrientes a las células?',
+   img:'https://tse4.mm.bing.net/th/id/OIP.oYceiWEfGzSGrGqZyNQ2wgHaEE?pid=Api&P=0&h=180',
+   opts:['Sistema nervioso','Sistema digestivo','Sistema circulatorio','Sistema óseo'],ans:2,
+   exp:'¡El circulatorio! El corazón bombea sangre con O₂ y nutrientes a través de arterias, venas y capilares.'},
+  {q:'En el método científico, ¿qué paso viene DESPUÉS de observar un problema?',
+   img:'https://tse1.mm.bing.net/th/id/OIP.SnQaxKuwhVVQqZ3F-99UGAHaB2?pid=Api&P=0&h=180',
+   opts:['Sacar conclusiones','Publicar resultados','Formular una hipótesis','Repetir el experimento'],ans:2,
+   exp:'Observación → Hipótesis → Experimentación → Análisis → Conclusión. ¡La hipótesis es tu respuesta provisional!'},
+  {q:'¿Qué le ocurre a los corales cuando la temperatura del mar sube demasiado?',
+   img:'https://img.magnific.com/fotos-premium/arrecife-coral-muchos-corales-esponjas-diferentes-colores_1130573-34093.jpg',
+   opts:['Crecen más rápido y se reproducen','Se blanquean porque expulsan sus algas simbióticas','Cambian de color pero siguen igual','No les afecta la temperatura'],ans:1,
+   exp:'¡Blanqueamiento coralino! El coral expulsa las zooxantelas (algas simbióticas) que le dan color y nutrientes, perdiendo su fuente de energía.'},
+  {q:'¿Cuántos huesos tiene el cuerpo humano adulto?',
+   img:'https://images.clarin.com/2021/02/12/el-esqueleto-esta-formado-por___i6NVrqC5J_1256x620__1.jpg',
+   opts:['150','206','300','250'],ans:1,
+   exp:'¡206 huesos! Un bebé nace con 270-300, pero con el crecimiento muchos se fusionan. El más largo es el fémur.'},
+  {q:'¿Qué función tiene el aparato de Golgi?',
+   img:'https://media.c5n.com/p/c3834fa28975755f1ebef331c7cadb08/adjuntos/326/imagenes/000/177/0000177887/1200x675/smart/celulas.jpg',
+   opts:['Produce energía ATP','Almacena agua','Modifica, empaqueta y distribuye proteínas','Realiza la fotosíntesis'],ans:2,
+   exp:'¡El Golgi es el "sistema postal" de la célula! Recibe proteínas del retículo, las modifica y las envía a su destino.'},
+  {q:'¿A qué velocidad viajan las señales del sistema nervioso?',
+   img:'https://www.fisioterapia-online.com/sites/default/files/anatomia_del_sistema_nervioso.jpg',
+   opts:['30 km/h','100 km/h','Más de 400 km/h','10 km/h'],ans:2,
+   exp:'¡Más de 400 km/h! Más rápido que un auto de Fórmula 1. Por eso reaccionamos tan rápido a los estímulos.'},
+];
+
+let curQ=0, quizScore2=0, answeredQ=false;
+function initQuiz(){
+  curQ=0; quizScore2=0; answeredQ=false;
+  document.getElementById('quizMain').style.display='block';
+  document.getElementById('quizResult').classList.remove('show');
+  loadQ();
+}
+function loadQ(){
+  if(curQ>=quizData.length){showResult();return;}
+  const q=quizData[curQ];
+  answeredQ=false;
+  document.getElementById('qNum').textContent=curQ+1;
+  document.getElementById('quizProgress').style.width=((curQ/quizData.length)*100)+'%';
+  document.getElementById('qImg').src=q.img;
+  const fb=document.getElementById('qFeedback');
+  fb.className='quiz-feedback'; fb.textContent='';
+  document.getElementById('nextBtn').disabled=true;
+  document.getElementById('qText').textContent=q.q;
+  const opts=document.getElementById('qOptions');
+  opts.innerHTML='';
+  q.opts.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='quiz-option';
+    btn.innerHTML='<span style="font-weight:800;color:#94a3b8">'+['A','B','C','D'][i]+'.</span> '+opt;
+    btn.onclick=()=>selectQ(i,btn);
+    opts.appendChild(btn);
+  });
+}
+function selectQ(idx,btn){
+  if(answeredQ) return;
+  answeredQ=true;
+  const q=quizData[curQ];
+  document.querySelectorAll('.quiz-option').forEach(b=>b.disabled=true);
+  const fb=document.getElementById('qFeedback');
+  if(idx===q.ans){
+    btn.classList.add('correct');
+    quizScore2++; addScore(20);
+    fb.textContent='🎉 ¡Correcto! '+q.exp;
+    fb.className='quiz-feedback correct show';
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.quiz-option')[q.ans].classList.add('correct');
+    fb.textContent='❌ Incorrecto. '+q.exp;
+    fb.className='quiz-feedback wrong show';
+    streak=0; document.getElementById('streak').textContent=streak;
+  }
+  document.getElementById('nextBtn').disabled=false;
+}
+function nextQuestion(){
+  curQ++;
+  if(curQ>=quizData.length) showResult(); else loadQ();
+}
+function showResult(){
+  document.getElementById('quizMain').style.display='none';
+  const res=document.getElementById('quizResult');
+  res.classList.add('show');
+  const pct=quizScore2/quizData.length;
+  let emoji,title,stars,img;
+  if(pct>=0.9){emoji='🏆';title='¡Eres un Científico Experto!';stars='⭐⭐⭐⭐⭐';img='https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=400&q=70&auto=format';}
+  else if(pct>=0.7){emoji='🎉';title='¡Muy Bien Hecho!';stars='⭐⭐⭐⭐';img='https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&q=70&auto=format';}
+  else if(pct>=0.5){emoji='💪';title='¡Buen Esfuerzo, Sigue Practicando!';stars='⭐⭐⭐';img='https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&q=70&auto=format';}
+  else{emoji='📚';title='¡Repasa los Módulos e Inténtalo de Nuevo!';stars='⭐⭐';img='https://images.unsplash.com/photo-1532094349884-543559c6b3e0?w=400&q=70&auto=format';}
+  document.getElementById('resultEmoji').textContent=emoji;
+  document.getElementById('resultTitle').textContent=title;
+  document.getElementById('resultStars').textContent=stars;
+  document.getElementById('resultImg').src=img;
+  document.getElementById('resultScore').textContent='Respondiste correctamente '+quizScore2+' de '+quizData.length+' preguntas';
+  addScore(quizScore2*5);
+  earnBadge();
+}
+function restartQuiz(){initQuiz();}
+
+// Init quiz on load so images pre-warm
+window.addEventListener('load',()=>{
+  // show first tab
+});
+</script>
+</body>
+</html>
